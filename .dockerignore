@@ -1,0 +1,6 @@
+# ignore git and local files
+.git
+.gitignore
+Dockerfile
+README.md
+LICENSE

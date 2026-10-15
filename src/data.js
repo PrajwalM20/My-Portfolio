@@ -1,5 +1,4 @@
-// Update the values here to personalize the portfolio.
-// Replace placeholder contact destinations before deploying.
+
 export const profile = {
   name: "Prajwal M",
   role: "CSE STUDENT · FULL-STACK DEVELOPER",
@@ -14,9 +13,7 @@ export const profile = {
   whatsapp: "https://wa.me/919353588862",
   email: "mailto:prajwalm20@gmail.com",
   location: "https://maps.google.com/?q=NIE+Mysuru",
-  // Put your photo at public/images/prajwal.jpg and keep this path.
   photo: "/images/prajwal.jpg",
-  // Put your resume PDF at public/resume.pdf.
   resume: "/resume.pdf",
 };
 
@@ -45,7 +42,6 @@ export const projects = [
     stack: ["Node.js", "Express", "MongoDB", "JavaScript"],
     image:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1100&q=85",
-    // Replace with this project's exact repository URL when available.
     github: "https://github.com/PrajwalM20",
     demo: "",
   },

@@ -1,7 +1,8 @@
+
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { profile } from "../data";
+import LiquidButton from "./LiquidButton";
 
 const links = [
   ["Home", "#home"],
@@ -36,12 +37,9 @@ export default function Navbar() {
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () =>
-      window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const closeMenu = () => setOpen(false);
@@ -54,19 +52,12 @@ export default function Navbar() {
           scale: scrolled ? 0.99 : 1,
         }}
         transition={{ duration: 0.25 }}
-        className={`
-          relative mx-auto max-w-[1240px]
-          rounded-2xl border
-          transition-all duration-300
-          ${
-            scrolled
-              ? "border-white/70 bg-white/75 shadow-[0_8px_32px_rgba(0,0,0,0.09)]"
-              : "border-white/60 bg-white/55 shadow-[0_4px_20px_rgba(0,0,0,0.035)]"
-          }
-          backdrop-blur-2xl
-        `}
+        className={`relative mx-auto max-w-[1240px] rounded-2xl border transition-all duration-300 backdrop-blur-2xl ${
+          scrolled
+            ? "border-white/70 bg-white/75 shadow-[0_8px_32px_rgba(0,0,0,0.09)]"
+            : "border-white/60 bg-white/55 shadow-[0_4px_20px_rgba(0,0,0,0.035)]"
+        }`}
       >
-        {/* Subtle glass highlight */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent"
@@ -96,16 +87,11 @@ export default function Navbar() {
                 key={href}
                 href={href}
                 onClick={() => setActive(href)}
-                className={`
-                  relative rounded-full px-4 py-2.5
-                  text-xs font-medium
-                  transition-colors duration-200
-                  ${
-                    active === href
-                      ? "text-ink"
-                      : "text-neutral-500 hover:text-ink"
-                  }
-                `}
+                className={`relative rounded-full px-4 py-2.5 text-xs font-medium transition-colors duration-200 ${
+                  active === href
+                    ? "text-ink"
+                    : "text-neutral-500 hover:text-ink"
+                }`}
               >
                 {active === href && (
                   <motion.span
@@ -118,28 +104,30 @@ export default function Navbar() {
                     }}
                   />
                 )}
-
                 <span className="relative z-10">{label}</span>
               </a>
             ))}
           </nav>
 
-          {/* Contact CTA */}
-          <a
-            href="#contact"
-            className="hidden items-center gap-2 rounded-full bg-ink px-4 py-2.5 text-xs font-medium text-white transition duration-300 hover:-translate-y-0.5 hover:bg-neutral-700 hover:shadow-lg sm:inline-flex"
-          >
-            Let's connect
-            <ArrowUpRight size={14} />
-          </a>
+          {/* Liquid-glass desktop CTA */}
+          <div className="hidden sm:block">
+            <LiquidButton
+              href="#contact"
+              variant="primary"
+              className="min-h-10 px-5 py-2 text-xs"
+            >
+              Let's connect
+              <ArrowUpRight size={15} />
+            </LiquidButton>
+          </div>
 
-          {/* Mobile toggle */}
+          {/* Mobile menu toggle */}
           <button
             type="button"
             aria-label={open ? "Close navigation" : "Open navigation"}
             aria-expanded={open}
             onClick={() => setOpen(!open)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-black/10 bg-white/65 transition hover:bg-white md:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/60 shadow-sm backdrop-blur-xl transition hover:bg-white md:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -178,16 +166,11 @@ export default function Navbar() {
                     initial={{ opacity: 0, x: -8 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.035 }}
-                    className={`
-                      mb-1 flex items-center justify-between
-                      rounded-xl px-4 py-3.5 text-sm
-                      transition-colors last:mb-0
-                      ${
-                        active === href
-                          ? "bg-white text-ink shadow-sm"
-                          : "text-neutral-600 hover:bg-white/70 hover:text-ink"
-                      }
-                    `}
+                    className={`mb-1 flex items-center justify-between rounded-xl px-4 py-3.5 text-sm transition-colors last:mb-0 ${
+                      active === href
+                        ? "bg-white text-ink shadow-sm"
+                        : "text-neutral-600 hover:bg-white/70 hover:text-ink"
+                    }`}
                   >
                     {label}
                     {active === href && (
@@ -196,16 +179,17 @@ export default function Navbar() {
                   </motion.a>
                 ))}
 
-                <a
-                  href={profile.whatsapp}
+                <LiquidButton
+                  href="https://wa.me/919353588862"
                   target="_blank"
                   rel="noopener noreferrer"
+                  variant="primary"
                   onClick={closeMenu}
-                  className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-ink px-4 py-3.5 text-sm font-medium text-white transition hover:bg-neutral-700"
+                  className="mt-3 w-full rounded-xl"
                 >
                   Message me on WhatsApp
                   <ArrowUpRight size={16} />
-                </a>
+                </LiquidButton>
               </div>
             </motion.nav>
           )}

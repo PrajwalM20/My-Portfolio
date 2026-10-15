@@ -1,8 +1,7 @@
 
 import { useEffect, useState } from "react";
-import { Canvas } from "@react-three/fiber";
-import { Float, Environment, ContactShadows } from "@react-three/drei";
 import { motion, useReducedMotion } from "framer-motion";
+import LiquidButton from "../components/LiquidButton";
 import {
   ArrowDown,
   ArrowRight,
@@ -13,16 +12,10 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
+
 import { profile } from "../data";
 import Reveal from "../components/Reveal";
-
-const socialLinks = [
-  { label: "WhatsApp", href: profile.whatsapp, Icon: MessageCircle },
-  { label: "Email", href: profile.email, Icon: Mail },
-  { label: "LinkedIn", href: profile.linkedin, Icon: Linkedin, external: true },
-  { label: "GitHub", href: profile.github, Icon: Github, external: true },
-  { label: "Location", href: profile.location, Icon: MapPin, external: true },
-];
+import AssemblyMachine from "../components/AssemblyMachine";
 
 const roles = [
   "Full-Stack Developer",
@@ -31,63 +24,41 @@ const roles = [
   "Technology Enthusiast",
 ];
 
-function TechScene() {
-  return (
-    <>
-      <ambientLight intensity={1.5} />
-      <directionalLight position={[4, 5, 5]} intensity={2.2} />
-      <pointLight position={[-4, -2, 3]} intensity={1.5} color="#d8c7a8" />
+const socialLinks = [
+  { label: "WhatsApp", href: profile.whatsapp, Icon: MessageCircle },
+  { label: "Email", href: profile.email, Icon: Mail },
+  {
+    label: "LinkedIn",
+    href: profile.linkedin,
+    Icon: Linkedin,
+    external: true,
+  },
+  {
+    label: "GitHub",
+    href: profile.github,
+    Icon: Github,
+    external: true,
+  },
+  {
+    label: "Location",
+    href: profile.location,
+    Icon: MapPin,
+    external: true,
+  },
+];
 
-      <Float speed={1.3} rotationIntensity={0.22} floatIntensity={0.5}>
-        <mesh position={[-0.85, 0.5, 0]} rotation={[0.3, 0.45, 0.15]}>
-          <boxGeometry args={[1.05, 1.05, 1.05]} />
-          <meshStandardMaterial
-            color="#d9d9d3"
-            metalness={0.65}
-            roughness={0.25}
-          />
-        </mesh>
-      </Float>
-
-      <Float speed={1.7} rotationIntensity={0.3} floatIntensity={0.7}>
-        <mesh position={[0.8, -0.25, 0.35]} rotation={[0.25, 0.4, 0.2]}>
-          <boxGeometry args={[0.85, 0.85, 0.85]} />
-          <meshStandardMaterial
-            color="#9c9d99"
-            metalness={0.75}
-            roughness={0.22}
-          />
-        </mesh>
-      </Float>
-
-      <Float speed={1.5} rotationIntensity={0.25} floatIntensity={0.8}>
-        <mesh position={[0.85, 1.05, -0.6]} rotation={[0.4, 0.6, 0]}>
-          <icosahedronGeometry args={[0.3, 1]} />
-          <meshStandardMaterial
-            color="#b9a88e"
-            metalness={0.65}
-            roughness={0.28}
-          />
-        </mesh>
-      </Float>
-
-      <ContactShadows
-        position={[0, -1.5, -0.5]}
-        opacity={0.22}
-        scale={5}
-        blur={2.5}
-      />
-
-      <Environment preset="studio" />
-    </>
-  );
-}
+const stats = [
+  { title: "Projects", detail: "Learning by building", icon: "↗" },
+  { title: "Tech stack", detail: "Full-stack development", icon: "</>" },
+  { title: "Mindset", detail: "Always improving", icon: "✳" },
+  { title: "Education", detail: "NIE Mysuru", icon: "⌂" },
+];
 
 function AnimatedRole({ reduceMotion }) {
   const [roleIndex, setRoleIndex] = useState(0);
 
   useEffect(() => {
-    if (reduceMotion) return;
+    if (reduceMotion) return undefined;
 
     const timer = window.setInterval(() => {
       setRoleIndex((current) => (current + 1) % roles.length);
@@ -97,8 +68,8 @@ function AnimatedRole({ reduceMotion }) {
   }, [reduceMotion]);
 
   return (
-    <div className="mt-3 flex min-h-7 items-center gap-2 text-sm text-neutral-600">
-      <span className="h-1.5 w-1.5 rounded-full bg-[#a58b66]" />
+    <div className="mt-4 flex min-h-7 items-center gap-2 text-sm text-neutral-600">
+      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#b9a17d]" />
 
       <motion.span
         key={roleIndex}
@@ -120,7 +91,7 @@ export default function Home() {
       id="home"
       className="relative isolate overflow-hidden border-b border-black/5 bg-paper"
     >
-      {/* Soft background texture */}
+      {/* Subtle background texture */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 opacity-40"
@@ -128,17 +99,16 @@ export default function Home() {
           backgroundImage:
             "radial-gradient(#b9b9ae 0.7px, transparent 0.7px)",
           backgroundSize: "24px 24px",
-          maskImage:
-            "linear-gradient(to right, black, transparent 80%)",
+          maskImage: "linear-gradient(to right, black, transparent 85%)",
         }}
       />
 
-      <div className="mx-auto grid min-h-[680px] max-w-[1240px] grid-cols-1 items-center gap-12 px-5 pb-44 pt-16 md:grid-cols-[1fr_.95fr] md:px-8 md:pb-36 md:pt-20">
-        {/* Left: introduction */}
+      <div className="mx-auto grid max-w-[1240px] grid-cols-1 items-center gap-12 px-5 pb-40 pt-16 sm:px-7 md:min-h-[690px] md:grid-cols-[1fr_.95fr] md:gap-10 md:px-8 md:pb-36 md:pt-20 lg:gap-14">
+        {/* Left: hero introduction */}
         <div className="relative z-10 max-w-[600px]">
           <Reveal>
-            <p className="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[.18em] text-neutral-600">
-              <span className="h-px w-7 bg-[#b9a17d]" />
+            <p className="mb-5 flex items-center gap-3 font-mono text-[10px] tracking-[.18em] text-neutral-600 sm:text-[11px]">
+              <span className="h-px w-7 shrink-0 bg-[#b9a17d]" />
               {profile.role}
             </p>
           </Reveal>
@@ -159,35 +129,35 @@ export default function Home() {
             <span className="text-neutral-500">Solutions.</span>
           </motion.h1>
 
-          <Reveal delay={0.15}>
-            <AnimatedRole reduceMotion={reduceMotion} />
+          <Reveal delay={0.12}>
+            <AnimatedRole reduceMotion={Boolean(reduceMotion)} />
 
-            <p className="mt-4 max-w-lg text-sm leading-7 text-muted">
+            <p className="mt-4 max-w-lg text-sm leading-7 text-muted sm:text-base sm:leading-8">
               {profile.intro}
             </p>
           </Reveal>
 
-          <Reveal delay={0.22}>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <a
-                href="#projects"
-                className="inline-flex min-h-11 items-center gap-4 rounded-lg bg-ink px-5 text-xs font-semibold text-white transition duration-300 hover:-translate-y-1 hover:bg-neutral-700 hover:shadow-lg"
-              >
-                View my work <ArrowRight size={15} />
-              </a>
+          {/* Liquid-glass action buttons */}
+          <Reveal delay={0.2}>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <LiquidButton href="#projects" variant="primary">
+                View my work
+                <ArrowRight size={16} />
+              </LiquidButton>
 
-              <a
+              <LiquidButton
                 href={profile.resume}
                 download
-                className="inline-flex min-h-11 items-center gap-3 rounded-lg border border-neutral-400 px-4 text-xs font-semibold transition duration-300 hover:-translate-y-1 hover:border-ink hover:bg-white"
+                variant="secondary"
               >
-                <Download size={15} />
+                <Download size={16} />
                 Download resume
-              </a>
+              </LiquidButton>
             </div>
           </Reveal>
 
-          <Reveal delay={0.3}>
+          {/* Social links with matching glass surfaces */}
+          <Reveal delay={0.28}>
             <div className="mt-7 flex flex-wrap gap-2.5">
               {socialLinks.map(({ label, href, Icon, external }) => (
                 <a
@@ -197,45 +167,29 @@ export default function Home() {
                   title={label}
                   target={external ? "_blank" : undefined}
                   rel={external ? "noopener noreferrer" : undefined}
-                  className="grid h-10 w-10 place-items-center rounded-full border border-neutral-300 bg-white/80 transition duration-300 hover:-translate-y-1 hover:border-ink hover:bg-ink hover:text-white"
+                  className="group grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/55 text-neutral-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_4px_16px_rgba(107,87,160,0.08)] backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:border-violet-200 hover:bg-violet-100/80 hover:text-violet-800 hover:shadow-[0_8px_24px_rgba(107,87,160,0.16)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
                 >
-                  <Icon size={17} strokeWidth={1.7} />
+                  <Icon
+                    size={17}
+                    strokeWidth={1.7}
+                    className="transition-transform duration-300 group-hover:scale-110"
+                  />
                 </a>
               ))}
             </div>
           </Reveal>
         </div>
 
-        {/* Right: professional image + interactive 3D scene */}
-        <Reveal delay={0.12} y={12} className="relative">
-          <div className="group relative min-h-[350px] overflow-hidden rounded-2xl border border-black/10 bg-[#e7e6df] shadow-[0_20px_65px_rgba(0,0,0,0.10)] sm:min-h-[440px]">
-            <motion.img
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85"
-              alt="Modern professional workspace with desks and computers"
-              loading="eager"
-              initial={reduceMotion ? false : { scale: 1.08 }}
-              animate={reduceMotion ? undefined : { scale: 1 }}
-              transition={{ duration: 1.4, ease: "easeOut" }}
-              className="absolute inset-0 h-full w-full object-cover object-center grayscale-[35%] transition duration-700 group-hover:grayscale-0"
-            />
+        {/* Right: Three.js animation card */}
+        <Reveal delay={0.1} y={12} className="relative z-0 min-w-0">
+          <div className="group relative isolate h-[370px] overflow-hidden rounded-2xl border border-[#ded8ee] bg-gradient-to-br from-white via-[#f8f6ff] to-[#e8e0ff] shadow-[0_20px_65px_rgba(0,0,0,0.09)] sm:h-[440px] lg:h-[500px]">
+            <AssemblyMachine reducedMotion={Boolean(reduceMotion)} />
 
-            <div className="absolute inset-0 bg-gradient-to-br from-white/30 via-white/10 to-black/35" />
+            {/* Soft glass overlay */}
+            <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-br from-white/10 via-transparent to-[#b8a2f4]/10" />
 
-            {/* 3D scene overlay */}
-            {!reduceMotion && (
-              <div className="absolute inset-0">
-                <Canvas
-                  camera={{ position: [0, 0, 5], fov: 45 }}
-                  dpr={[1, 1.5]}
-                  gl={{ alpha: true, antialias: true }}
-                >
-                  <TechScene />
-                </Canvas>
-              </div>
-            )}
-
-            {/* Glass labels */}
-            <div className="absolute left-4 top-4 rounded-xl border border-white/60 bg-white/65 px-4 py-3 shadow-sm backdrop-blur-xl sm:left-5 sm:top-5">
+            {/* Currently building label */}
+            <div className="pointer-events-none absolute left-4 top-4 z-10 rounded-xl border border-white/90 bg-white/75 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_5px_20px_rgba(107,87,160,0.08)] backdrop-blur-xl sm:left-5 sm:top-5">
               <p className="font-mono text-[9px] tracking-[.16em] text-neutral-500">
                 CURRENTLY BUILDING
               </p>
@@ -244,6 +198,7 @@ export default function Home() {
               </p>
             </div>
 
+            {/* Floating approach label */}
             <motion.div
               animate={
                 reduceMotion
@@ -255,7 +210,7 @@ export default function Home() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute bottom-16 right-4 rounded-xl border border-white/60 bg-white/70 px-4 py-3 shadow-sm backdrop-blur-xl sm:bottom-20 sm:right-5"
+              className="pointer-events-none absolute bottom-[76px] right-4 z-10 rounded-xl border border-white/90 bg-white/75 px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.95),0_5px_20px_rgba(107,87,160,0.08)] backdrop-blur-xl sm:bottom-[82px] sm:right-5"
             >
               <p className="font-mono text-[9px] tracking-widest text-neutral-500">
                 APPROACH
@@ -265,13 +220,15 @@ export default function Home() {
               </p>
             </motion.div>
 
-            <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between gap-3 bg-black/55 px-4 py-4 text-[9px] tracking-[.13em] text-white backdrop-blur-md sm:px-5">
+            {/* Card footer */}
+            <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-10 flex min-h-[48px] items-center justify-between gap-3 bg-black/55 px-4 py-4 text-[9px] tracking-[.13em] text-white backdrop-blur-md sm:px-5">
               <span>DESIGN · CODE · BUILD</span>
-              <span>PORTFOLIO / 2026</span>
+              <span className="shrink-0">PORTFOLIO / 2026</span>
             </div>
           </div>
 
-          <div className="absolute -bottom-4 -left-2 hidden rounded-xl border border-white/80 bg-white/80 px-4 py-3 shadow-lg backdrop-blur-xl sm:block">
+          {/* Location badge */}
+          <div className="pointer-events-none absolute -bottom-4 -left-2 z-10 hidden rounded-xl border border-white/80 bg-white/80 px-4 py-3 shadow-lg backdrop-blur-xl sm:block">
             <p className="font-mono text-[9px] tracking-widest text-neutral-500">
               BASED IN
             </p>
@@ -281,16 +238,11 @@ export default function Home() {
       </div>
 
       {/* Bottom statistics strip */}
-      <div className="absolute bottom-5 left-5 right-5 mx-auto grid max-w-[1130px] grid-cols-2 overflow-hidden rounded-xl border border-black/10 bg-white/80 shadow-sm backdrop-blur-2xl md:bottom-7 md:left-8 md:right-8 md:grid-cols-4">
-        {[
-          ["Projects", "Practical solutions", "↗"],
-          ["Tech stack", "Learning by building", "</>"],
-          ["Mindset", "Always improving", "✳"],
-          ["Education", "NIE Mysuru", "⌂"],
-        ].map(([title, detail, icon], i) => (
+      <div className="absolute bottom-5 left-5 right-5 mx-auto grid max-w-[1130px] grid-cols-2 overflow-hidden rounded-xl border border-white/80 bg-white/75 shadow-sm backdrop-blur-2xl md:bottom-7 md:left-8 md:right-8 md:grid-cols-4">
+        {stats.map(({ title, detail, icon }, i) => (
           <div
             key={title}
-            className={`flex min-h-[64px] items-center gap-3 border-black/10 px-3 py-3 sm:px-5 ${
+            className={`flex min-h-[66px] items-center gap-3 border-black/10 px-3 py-3 sm:px-5 ${
               i % 2 === 0 ? "border-r" : ""
             } ${i < 2 ? "border-b md:border-b-0" : ""} ${
               i === 3 ? "md:border-l" : ""
@@ -299,7 +251,7 @@ export default function Home() {
             <span className="font-serif text-2xl text-neutral-500">
               {icon}
             </span>
-            <span>
+            <span className="min-w-0">
               <b className="block text-xs">{title}</b>
               <small className="mt-1 block text-[10px] text-muted">
                 {detail}
@@ -309,11 +261,13 @@ export default function Home() {
         ))}
       </div>
 
+      {/* Scroll cue */}
       <a
         href="#about"
-        className="absolute bottom-[145px] right-8 hidden items-center gap-2 font-mono text-[9px] tracking-[.15em] text-neutral-500 md:flex"
+        className="absolute bottom-[145px] right-8 hidden items-center gap-2 font-mono text-[9px] tracking-[.15em] text-neutral-500 transition-colors hover:text-ink md:flex"
       >
-        SCROLL TO EXPLORE <ArrowDown size={13} />
+        SCROLL TO EXPLORE
+        <ArrowDown size={13} />
       </a>
     </section>
   );

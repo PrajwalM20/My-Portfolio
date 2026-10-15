@@ -11,7 +11,7 @@ export const profile = {
   github: "https://github.com/PrajwalM20",
   linkedin: "https://www.linkedin.com/in/prajwalm05/",
   whatsapp: "https://wa.me/919353588862",
-  email: "mailto:prajwalm20@gmail.com",
+  email: "mailto:prajwalm1122@gmail.com",
   location: "https://maps.google.com/?q=NIE+Mysuru",
   photo: "/images/prajwal.jpg",
   resume: "/resume.pdf",

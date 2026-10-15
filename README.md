@@ -1,69 +1,123 @@
-# Prajwal M — React + Tailwind Portfolio
+# My Portfolio
 
-A responsive white/black developer portfolio built with React, Vite, Tailwind CSS, Framer Motion, Lucide, and React Icons.
+A modern, responsive developer portfolio built with React and Vite to showcase my technical skills, projects, and development journey as a Computer Science Engineering student.
 
-## 1. Requirements
-- Node.js LTS installed
-- VS Code
-- Internet connection for remote images and Google Fonts
+## Features
 
-## 2. Run locally
-Open this folder in VS Code, then open the terminal (**Terminal → New Terminal**) and run:
+- Modern and responsive homepage
+- Interactive navigation bar
+- About Me section
+- Technical skills showcase with skill icons
+- Projects portfolio
+- Contact section
+- Reusable React components
+- Custom animations and reveal effects
+- Modern UI with Tailwind CSS
+
+## Tech Stack
+
+- **Frontend:** React.js, JavaScript, HTML5, CSS3
+- **Build Tool:** Vite
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion (where implemented)
+- **Icons:** React Icons / Lucide React (as used in the project)
+- **Version Control:** Git and GitHub
+
+## Project Structure
+
+```text
+My-Portfolio/
+├── public/
+│   └── images/
+├── src/
+│   ├── components/
+│   │   ├── AssemblyMachine.jsx
+│   │   ├── LiquidButton.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── Reveal.jsx
+│   │   ├── SectionHeading.jsx
+│   │   └── SkillIcon.jsx
+│   ├── sections/
+│   │   ├── About.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Home.jsx
+│   │   ├── Projects.jsx
+│   │   └── Skills.jsx
+│   ├── App.jsx
+│   ├── data.js
+│   └── main.jsx
+├── .gitignore
+├── index.html
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.js
+└── README.md
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/PrajwalM20/My-Portfolio
+```
+
+**2. Navigate to the project directory**
+
+```bash
+cd My-Portfolio
+```
+
+**3. Install dependencies**
 
 ```bash
 npm install
+```
+
+**4. Start the development server**
+
+```bash
 npm run dev
 ```
 
-Vite prints a local address, usually `http://localhost:5173`. Open that URL in your browser.
+Open the local URL displayed in your terminal to view the portfolio.
 
-To create a production build:
+### Build for Production
+
 ```bash
 npm run build
+```
+
+### Preview the Production Build
+
+```bash
 npm run preview
 ```
 
-## 3. Add your own photo
-1. Put a suitable portrait photo in `public/images/`.
-2. Name it `prajwal.jpg`.
-3. The About section already points to `/images/prajwal.jpg`.
-4. Replace the temporary fallback portrait logic in `src/sections/About.jsx` if you want no fallback.
+## Deployment
 
-## 4. Add your resume
-Put your PDF at `public/resume.pdf`. The Home button links to that path.
+The portfolio can be deployed using **Vercel** or another hosting platform that supports React and Vite.
 
-## 5. Configure contact links
-Edit `src/data.js`:
-- Replace `https://wa.me/91YOURNUMBER` with your WhatsApp destination (country code and digits, no `+` or spaces).
-- Replace `mailto:YOUR_EMAIL@example.com` with your actual email destination.
-- Phone/email are not displayed as visible text. Their href destinations are still inspectable in a static site.
-- There is no Call Me button or `tel:` link.
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
 
-## 6. Set exact project GitHub URLs
-In `src/data.js`, replace each `github` field under `projects` with the exact repository URL for MedTrack, ClickQueue, and SmartCampus. Current starter values point to the profile because exact repository URLs were not supplied. Set `demo` to a real deployed URL when one exists; leave it empty otherwise.
+## About Me
 
-## 7. Update your skills and project data
-Edit `src/data.js`. Skills use icon keys mapped in `src/components/SkillIcon.jsx`. Add or remove skill entries to reflect your actual experience.
+I'm a Computer Science Engineering student passionate about software development, building useful applications, and exploring modern web technologies.
 
-## 8. Images
-Hero and project images currently use remote Unsplash URLs. For production, ensure you have permission to use selected images or replace them with local images under `public/images/`, then update the URLs in `src/sections/Home.jsx` and `src/data.js`.
+This portfolio showcases my skills, projects, and continuous learning journey as a developer.
 
-## 9. Main files
-- `src/App.jsx`: page composition, footer, back-to-top.
-- `src/data.js`: profile, links, skills, project content.
-- `src/components/Navbar.jsx`: responsive navigation.
-- `src/components/Reveal.jsx`: scroll reveal animation.
-- `src/components/SkillIcon.jsx`: technology logos.
-- `src/sections/Home.jsx`: home hero, workspace image, CTA and social links.
-- `src/sections/About.jsx`: portrait and personal details.
-- `src/sections/Skills.jsx`: icon grid.
-- `src/sections/Projects.jsx`: project images and GitHub/demo buttons.
-- `src/sections/Contact.jsx`: WhatsApp, email, LinkedIn, GitHub and location.
-- `src/index.css` and `tailwind.config.js`: styling.
+---
 
-## 10. Before publishing
-- Replace contact placeholders.
-- Add your own profile photo and resume.
-- Confirm project repository links and descriptions.
-- Run `npm run build` and fix any errors.
-- Test desktop and mobile widths.
+If you like this project, consider giving the repository a star.
+
+**Built with React, Vite, and passion for development.**

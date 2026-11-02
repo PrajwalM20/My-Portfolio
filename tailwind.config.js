@@ -1,24 +1,33 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+
   theme: {
     extend: {
       colors: {
-        paper: "#f7f7f4",
-        ink: "#171817",
-        muted: "#737771",
-        line: "#dedfd9",
-        sand: "#c5a06b",
+        navy: "#0B1D50",
+        orange: "#FF4D0A",
+        paper: "#FFF9F4",
+        ink: "#0B1D50",
+        muted: "#777B87",
+        line: "#E4DFD9",
+        sand: "#FF4D0A",
       },
+
+      boxShadow: {
+        soft: "0 12px 35px rgba(11,29,80,0.08)",
+      },
+
       fontFamily: {
         sans: ["DM Sans", "sans-serif"],
-        serif: ["Playfair Display", "Georgia", "serif"],
-        mono: ["DM Mono", "monospace"],
-      },
-      boxShadow: {
-        soft: "0 18px 50px rgba(25, 28, 24, .08)",
+        display: ["Space Grotesk", "sans-serif"],
       },
     },
   },
+
   plugins: [],
 };

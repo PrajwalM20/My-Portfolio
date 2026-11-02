@@ -1,200 +1,118 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import LiquidButton from "./LiquidButton";
+import { AnimatePresence, motion } from "framer-motion";
 
 const links = [
-  ["Home", "#home"],
-  ["About", "#about"],
-  ["Skills", "#skills"],
-  ["Projects", "#projects"],
-  ["Contact", "#contact"],
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Projects", path: "/projects" },
+  { name: "Skills", path: "/skills" },
+  { name: "Education", path: "/education" },
+  { name: "Resume", path: "/resume" },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [active, setActive] = useState("#home");
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-
-      const sections = links
-        .map(([, href]) => document.querySelector(href))
-        .filter(Boolean);
-
-      let current = "#home";
-
-      sections.forEach((section) => {
-        if (section.getBoundingClientRect().top <= 150) {
-          current = `#${section.id}`;
-        }
-      });
-
-      setActive(current);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const closeMenu = () => setOpen(false);
 
   return (
     <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <motion.div
-        animate={{
-          y: scrolled ? -2 : 0,
-          scale: scrolled ? 0.99 : 1,
-        }}
-        transition={{ duration: 0.25 }}
-        className={`relative mx-auto max-w-[1240px] rounded-2xl border transition-all duration-300 backdrop-blur-2xl ${
-          scrolled
-            ? "border-white/70 bg-white/75 shadow-[0_8px_32px_rgba(0,0,0,0.09)]"
-            : "border-white/60 bg-white/55 shadow-[0_4px_20px_rgba(0,0,0,0.035)]"
-        }`}
-      >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white to-transparent"
-        />
+      <div className="mx-auto max-w-[1400px] rounded-full border border-white/20 bg-paper/90 shadow-lg backdrop-blur-xl">
+        <div className="flex min-h-[68px] items-center justify-between gap-3 px-4 sm:px-7">
 
-        <div className="flex h-[66px] items-center justify-between gap-3 px-4 sm:px-6">
-          {/* Logo */}
-          <a
-            href="#home"
+          <Link
+            to="/"
             onClick={closeMenu}
-            className="group shrink-0 text-lg font-bold tracking-[-0.07em] text-ink"
+            className="shrink-0 text-xl font-black tracking-tight text-ink"
           >
-            Prajwal
-            <span className="text-sand transition-colors group-hover:text-neutral-900">
-              {" "}M
-            </span>
-            <span className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-sand align-middle" />
-          </a>
+            PRAJWAL<span className="text-orange"> M.</span>
+          </Link>
 
-          {/* Desktop navigation */}
-          <nav
-            className="hidden items-center gap-1 md:flex"
-            aria-label="Main navigation"
-          >
-            {links.map(([label, href]) => (
-              <a
-                key={href}
-                href={href}
-                onClick={() => setActive(href)}
-                className={`relative rounded-full px-4 py-2.5 text-xs font-medium transition-colors duration-200 ${
-                  active === href
-                    ? "text-ink"
-                    : "text-neutral-500 hover:text-ink"
-                }`}
+          <nav className="hidden items-center gap-1 xl:flex">
+            {links.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                end={link.path === "/"}
+                className={({ isActive }) =>
+                  `relative rounded-full px-3 py-3 text-xs font-semibold transition ${
+                    isActive
+                      ? "bg-orange text-white"
+                      : "text-ink hover:bg-orange/10 hover:text-orange"
+                  }`
+                }
               >
-                {active === href && (
-                  <motion.span
-                    layoutId="navbar-active"
-                    className="absolute inset-0 rounded-full border border-black/[0.07] bg-white/80 shadow-sm"
-                    transition={{
-                      type: "spring",
-                      stiffness: 350,
-                      damping: 30,
-                    }}
-                  />
-                )}
-                <span className="relative z-10">{label}</span>
-              </a>
+                {link.name}
+              </NavLink>
             ))}
           </nav>
 
-          {/* Liquid-glass desktop CTA */}
-          <div className="hidden sm:block">
-            <LiquidButton
-              href="#contact"
-              variant="primary"
-              className="min-h-10 px-5 py-2 text-xs"
-            >
-              Let's connect
-              <ArrowUpRight size={15} />
-            </LiquidButton>
-          </div>
-
-          {/* Mobile menu toggle */}
-          <button
-            type="button"
-            aria-label={open ? "Close navigation" : "Open navigation"}
-            aria-expanded={open}
-            onClick={() => setOpen(!open)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-white/80 bg-white/60 shadow-sm backdrop-blur-xl transition hover:bg-white md:hidden"
+          <Link
+            to="/contact"
+            className="hidden items-center gap-2 rounded-full bg-ink px-5 py-3 text-xs font-bold text-white transition hover:bg-orange sm:flex"
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={open ? "close" : "menu"}
-                initial={{ opacity: 0, rotate: -45, scale: 0.8 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 45, scale: 0.8 }}
-                transition={{ duration: 0.15 }}
-              >
-                {open ? <X size={18} /> : <Menu size={18} />}
-              </motion.span>
-            </AnimatePresence>
+            Let's Connect
+            <ArrowUpRight size={15} />
+          </Link>
+
+          <button
+            onClick={() => setOpen(!open)}
+            className="grid h-10 w-10 place-items-center rounded-full bg-orange text-white xl:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+          >
+            {open ? <X size={19} /> : <Menu size={19} />}
           </button>
         </div>
 
-        {/* Animated mobile menu */}
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
           {open && (
             <motion.nav
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.22, ease: "easeInOut" }}
-              className="overflow-hidden border-t border-black/[0.06] md:hidden"
-              aria-label="Mobile navigation"
+              transition={{ duration: 0.25 }}
+              className="overflow-hidden border-t border-ink/10 xl:hidden"
             >
-              <div className="p-3">
-                {links.map(([label, href], index) => (
-                  <motion.a
-                    key={href}
-                    href={href}
-                    onClick={() => {
-                      setActive(href);
-                      closeMenu();
-                    }}
-                    initial={{ opacity: 0, x: -8 }}
+              <div className="space-y-1 p-4">
+                {links.map((link, index) => (
+                  <motion.div
+                    key={link.path}
+                    initial={{ opacity: 0, x: -12 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.035 }}
-                    className={`mb-1 flex items-center justify-between rounded-xl px-4 py-3.5 text-sm transition-colors last:mb-0 ${
-                      active === href
-                        ? "bg-white text-ink shadow-sm"
-                        : "text-neutral-600 hover:bg-white/70 hover:text-ink"
-                    }`}
+                    transition={{ delay: index * 0.04 }}
                   >
-                    {label}
-                    {active === href && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-sand" />
-                    )}
-                  </motion.a>
+                    <NavLink
+                      to={link.path}
+                      end={link.path === "/"}
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        `block rounded-xl px-4 py-3 text-sm font-semibold ${
+                          isActive
+                            ? "bg-orange text-white"
+                            : "text-ink hover:bg-orange/10"
+                        }`
+                      }
+                    >
+                      {link.name}
+                    </NavLink>
+                  </motion.div>
                 ))}
 
-                <LiquidButton
-                  href="https://wa.me/919353588862"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="primary"
+                <Link
+                  to="/contact"
                   onClick={closeMenu}
-                  className="mt-3 w-full rounded-xl"
+                  className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-orange px-4 py-3 font-semibold text-white"
                 >
-                  Message me on WhatsApp
-                  <ArrowUpRight size={16} />
-                </LiquidButton>
+                  Let's Connect <ArrowUpRight size={16} />
+                </Link>
               </div>
             </motion.nav>
           )}
         </AnimatePresence>
-      </motion.div>
+      </div>
     </header>
   );
 }

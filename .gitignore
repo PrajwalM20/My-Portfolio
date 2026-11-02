@@ -1,51 +1,92 @@
-# Dependencies
-node_modules/
 
-# Production build
+# =========================================
+# DEPENDENCIES
+# =========================================
+node_modules/
+.pnp/
+.pnp.js
+
+# =========================================
+# PRODUCTION BUILD
+# =========================================
 dist/
 build/
 
-# Environment variables and secrets
+# =========================================
+# ENVIRONMENT VARIABLES & SECRETS
+# =========================================
 .env
 .env.*
 !.env.example
+!.env.sample
 
-# Debug logs
+# =========================================
+# DEBUG LOGS
+# =========================================
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 lerna-debug.log*
+*.log
 
-# Vite
+# =========================================
+# VITE CACHE
+# =========================================
 .vite/
+*.local
 
-# Testing and coverage
+# =========================================
+# TESTING & COVERAGE
+# =========================================
 coverage/
+.nyc_output/
 
-# Editor directories and files
+# =========================================
+# EDITORS & IDEs
+# =========================================
 .vscode/*
 !.vscode/extensions.json
 .idea/
 *.swp
 *.swo
+*.swn
+*.code-workspace
 
-# Operating system files
+# =========================================
+# OPERATING SYSTEM FILES
+# =========================================
 .DS_Store
+.DS_Store?
+._*
 Thumbs.db
 desktop.ini
 
-# Temporary files
+# =========================================
+# TEMPORARY FILES
+# =========================================
 *.tmp
 *.temp
-*.log
+.cache/
+.temp/
 
-# Local certificates and keys
+# =========================================
+# CERTIFICATES & PRIVATE KEYS
+# =========================================
 *.pem
 *.key
 *.crt
+*.p12
+*.pfx
 
-# Optional package manager files
-# Uncomment if you intentionally don't want to track them
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
+# =========================================
+# DEPLOYMENT
+# =========================================
+.vercel/
+.netlify/
+
+# =========================================
+# OPTIONAL FRAMEWORK OUTPUTS
+# =========================================
+.next/
+.nuxt/
+.svelte-kit/

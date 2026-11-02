@@ -1,4 +1,3 @@
-
 export const profile = {
   name: "Prajwal M",
   role: "CSE STUDENT · FULL-STACK DEVELOPER",
@@ -45,18 +44,18 @@ export const projects = [
     github: "https://github.com/PrajwalM20",
     demo: "",
   },
-  {
-    name: "ClickQueue",
-    number: "02",
-    category: "Booking · Workflow",
-    description:
-      "A QR-based customer request and appointment workflow concept for photographers and small businesses.",
-    stack: ["HTML", "CSS", "JavaScript"],
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1100&q=85",
-    github: "https://github.com/PrajwalM20",
-    demo: "",
-  },
+  
+{
+  name: "ClickQueue",
+  number: "02",
+  category: "Booking · Workflow",
+  description:
+    "A QR-based customer request and appointment workflow concept for photographers and small businesses.",
+  stack: ["HTML", "CSS", "JavaScript"],
+  image: "/images/usha.jpg",
+  github: "https://github.com/PrajwalM20",
+  demo: "",
+},
   {
     name: "SmartCampus",
     number: "03",
